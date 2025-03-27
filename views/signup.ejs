@@ -1,0 +1,60 @@
+<%- include("templates/header") %>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/assets/common.css" />
+    <link rel="stylesheet" href="/assets/login.css" />  
+    </head>
+    <body id="auth-background">
+        <% if (typeof error !=='undefined' && error==='MissingFields' ) { %>
+            <div class="alert alert-danger d-flex justify-content-center mx-auto mb-0" id="alertBox"
+                 role="alert">
+                <p class="alert-heading">Please fill in all required fields.</p>
+            </div>
+            <% } %>
+                <% if (typeof error !=='undefined' && error==='Try use another email that is already exists' ) { %>
+                    <div class="alert alert-danger d-flex justify-content-center mx-auto mb-0"
+                        id="alertBox" role="alert">
+                        <p class="alert-heading">Try use another email that is already exists.</p>
+                    </div>
+                    <% } %>
+            <main class="form-signin w-auto m-auto">
+                <div class="d-flex gap-2 justify-content-center pb-5 pt-5 mt-5">
+                    <form class="form-area text-center" action="/signup" method="post">
+                        <!-- <img class="mb-3" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg"
+                            alt="" width="72" height="72"> -->
+                        <img height="72" src="/image/logo-fontless.svg" alt="logo">
+                        <h1 class="h3 mt-4 mb-3 font-weight-bold">Create account</h1>
+                        <p> * All fields are required *</p>
+
+                        <div class="form-floating mb-2">
+                            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="" value="<%= firstName || '' %>" >
+                            <label for="firstName">First Name</label>
+                        </div>
+                        <div class="form-floating mb-2">
+                            <input type="text" class="form-control" id="lastName" name="lastName" placeholder="" value="<%= lastName || '' %>">
+                            <label for="lastName">Last Name</label>
+                        </div>
+
+                        <div class="form-floating mb-2">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="" value="<%= email || '' %>">
+                            <label for="email">Email address</label>
+                        </div>
+
+                        <div class="form-floating mb-2">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="" value="<%= password || '' %>">
+                            <label for="password">Password</label>
+                        </div>
+                        <% if (groupToken !==null) { %>
+                            <input type='hidden' name='groupToken' id='groupToken' value="<%- groupToken %>">
+                            <% } %>
+                                <br>
+                                <button class="btn btn-block signupBtn" type="submit" value="signup">Sign up</button>
+
+                    </form>
+                </div>
+            </main>
+    <script src="/scripts/resetPassword.js"></script>
+    </body>
+</html>

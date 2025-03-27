@@ -1,0 +1,160 @@
+<%- include('templates/header') %>
+<link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="/assets/common.css" />
+<script src="/scripts/groupdetails.js" defer></script>
+<link rel="stylesheet" href="/assets/groupdetails.css" />
+<!-- cite css or js files here -->
+</head>
+<body id="groupDetailsPage">
+    <%- include('templates/subNav') %>
+    <div class="container text-center groupDetails mt-5 pt-5">
+        <h1><%- groupName %></h1>
+        <p>Check out members in your group</p>
+        <div class="container text-left">
+            <h3>Members</h3>
+            <ul>
+                <% for(var i = 0; i < group.length; i++) { %>
+                    <% if (group[i].active) {%>
+                        <% if (group[i].firstName + " " + group[i].lastName == user.firstName + " " + user.lastName) { %>
+                            <li>
+                                <% if (group[i].type == "leader") { %>
+                                    <span class="material-symbols-rounded" data-icon="leader_icon">
+                                        star
+                                        </span>
+                                <% } else {%>
+                                    <span class="material-symbols-rounded" data-icon="member_icon">
+                                        person
+                                        </span>
+                                <% } %>
+                                <%- group[i].firstName + " " + group[i].lastName %> (You)</li>
+                        <% } else { %>
+                            <li>
+                                <% if (group[i].type == "leader") { %>
+                                    <span class="material-symbols-rounded" data-icon="leader_icon">
+                                        star
+                                        </span>
+                                <% } else {%>
+                                    <span class="material-symbols-rounded" data-icon="member_icon">
+                                        person
+                                        </span>
+                                <% } %>
+                                <%- group[i].firstName + " " + group[i].lastName %>
+                            <% if (user.type == "leader") { %>
+                                <button class="btn btn-danger removeMember" id="<%- group[i].email %>" memberName='<%- group[i].firstName + " " + group[i].lastName %>'data-toggle="modal" data-target="#removeMemberModal">Remove</button></li>
+                            <% } %>
+                        <% } %>
+                    <% } %>
+                <% } %>
+            </ul>
+        </div>
+
+        <% if (user.type == "leader") { %>
+            <div class="container fixed-bottom leader-btn-group">
+                <button class="add-member-btn btn btn-primary" data-toggle="modal" data-target="#addMemberModal">Add Member</button>
+                <br>
+                <button class="delete-group-btn btn btn-danger" data-toggle="modal" data-target="#deleteGroupModal">Delete Group</button>
+            </div>
+
+            <!-- modal -->
+            <div class="modal fade" id="addMemberModal"tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <form class="modal-content" action="/invite" method="post">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Add a Member to <%- groupName %></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Enter invitee's email:</p>
+                            <input type="text" name="inviteeEmail" id="inviteeEmail">
+                            <input type="hidden" name="groupID" value="<%- groupID %>">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" id="inviteBtn" class="btn btn-primary" >Send Invite</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- delete group -->
+            <div class="modal fade" id="deleteGroupModal"tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <form class="modal-content" action="/deletegroup" method="post">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Delete <%- groupName %></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Are you sure you want to delete your group, <%- groupName %>? All chat history and itinerary plans will be lost forever!</p>
+                            <input type="hidden" name="groupID" value="<%- groupID %>">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" id="inviteBtn" class="btn btn-danger" >Delete Group</button>
+                            <button type="button" class="btn btn-cancel" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- remove member -->
+            <div class="modal" id="removeMemberModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <form class="modal-content" action="/removemember" method="post">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modal-title-remove">Title</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" id="modal-body-remove">
+                        </div>
+                        <div class="modal-footer">
+                            <input type="hidden" name="groupID" value="<%- groupID %>">
+                            <button type="submit" id="removeMember" class="btn btn-primary">Remove Member</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        <% } else { %>
+            <div class="container fixed-bottom member-btn-group">
+                <button class="btn btn-primary leave-group-btn" data-toggle="modal" data-target="#leaveGroupModal">Leave Group</button>
+            </div>
+
+            <!-- modal -->
+            <div class="modal" id="leaveGroupModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <form class="modal-content" action="/leavegroup" method="post">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Are you sure you want to leave <%- groupName %>?</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>You'll lose access to the group's itinerary plan and chatroom history!</p>
+                            <input type="hidden" name="groupID" value="<%- groupID %>">                            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" id="leaveGroup" class="btn btn-primary">Leave Group</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        <% } %>
+        
+    </div>
+    <%- include('templates/bottomNav') %>
+</body>
+</html>

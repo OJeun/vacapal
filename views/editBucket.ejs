@@ -1,0 +1,129 @@
+<%- include("templates/header") %>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/assets/common.css" />
+    <!-- cite css or js files here -->
+    </head>
+    <style>
+        body .container {
+            position: relative
+        }
+
+        .location {
+            font-weight: 300;
+            font-size: 2rem;
+        }
+
+        .label-overlay {
+            position: absolute;
+            top: -5%;
+            left: 95%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 1;
+            color: white;
+            /* Set the text color */
+            opacity: 0.5;
+            /* Hidden by default */
+        }
+
+        .material-symbols-outlined[data-icon="imagesmode"] {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 48
+        }
+    </style>
+    <body>
+        <%- include("templates/subNav") %>
+            <div>
+                <% if (card.travelImg) { %>
+                    <img src="data:image/png;base64,<%= card.travelImg %>" alt="cover" class="img-fluid mt-5 pt-4" style="width:100%">
+                <% } else { %>
+                    <img src="https://picsum.photos/seed/<%= card._id %>/300/200" alt="cover" class="img-fluid mt-5 pt-4" style="width:100%">
+                <% } %>
+
+                <div class="container">
+                    <h1 class="display-1">Edit Bucket List</h1>
+                    <p>Take record of your unforgetable journey here</p>
+                    
+                    <form action="/editBucket" method="post" enctype="multipart/form-data">
+                        <label for="imageInput" style="float:right" class="label-overlay">
+                            <span class="material-symbols-outlined" data-icon="imagesmode">
+                                imagesmode
+                            </span>
+                        </label>
+                        <div class="container">
+                            <br>
+                            <input id="imageInput" type="file" name="avatar" style="display:none;" />
+                        </div>
+
+                        <div class="form-group mb-0">
+                            <label for="location" class="location"><%= card.country %> - <%= card.city %></label>
+                            <input id="location" type="hidden" class="form-control" name="cardID" value="<%= card._id %>">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea type="description" class="form-control" name="description"
+                                rows="10"><%= card.description %></textarea>
+                        </div>
+
+                        <!-- Button trigger modal -->
+                        <button type="submit" class="submitBtn btn btn-primary ml-2"  style="margin-bottom:70px; float: right;">Submit</button>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteBucket" style="margin-bottom:70px; float: right;">
+                            Delete
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="deleteBucket" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h3 class="modal-title" id="exampleModalLabel">Delete bucket list?</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/deleteBucket" method="POST" class="deleteForm">
+                            <input type="hidden" class="form-control" name="cardID" value="<%= card._id %>">
+                            <!-- <button id="deletePost" type="submit" class="deleteBtn btn btn-danger" style="display: none">Delete</button> -->
+                            <button type="submit" class="btn btn-danger" style="float: right">Delete</button>
+                            <button class="btn btn-secondary mr-2" data-dismiss="modal" style="float: right;">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <%- include("templates/bottomNav") %>
+    </body>
+    <script>
+        $(document).ready(function () {
+            $("#imageInput").change(function () {
+                if (this.files && this.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('.img-fluid').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+
+            $('.submitBtn').click(function () {
+                swal("Your bucket list has been updated", {
+                    icon: "success",
+                }).then(() => {
+                    window.location.href = "/userprofile";
+                });
+            }
+        )
+        });
+    </script>
+</html>

@@ -1,0 +1,204 @@
+/* Path Type: public\assets\css */
+@import url(https://fonts.googleapis.com/css2?family=Mulish:wght@500&display=swap);
+
+/* this file includes some common css settings for all pages */
+:root {
+    --lightTheme: #A72D8b;
+    --theme: #672c79;
+    --blush: #C96B67;
+    --pink: #e994a9;
+    --beige: #f8c1a5;
+    --text: #81868d;
+    --backgroundWhite: #FFFFFF;
+}
+
+.theme {
+    background-color: var(--theme);
+}
+
+.lightTheme {
+    background-color: var(--lightTheme);
+}
+
+.text {
+    color: var(--text);
+}
+
+.whiteText {
+    color: var(--backgroundWhite);
+}
+
+html, body {
+    color: var(--text);
+    font-family: 'Mulish';
+}
+
+.background {
+    background-color: var(--backgroundWhite);
+}
+/* erase some unnecessary default css setting */
+* {
+    margin:0;
+    padding:0;
+    text-decoration: none;
+}
+label {
+    z-index: 0 !important;
+}
+/* common css style start here */
+.content {
+    padding-left:5vw;
+    padding-right:5vw;
+    /* padding-top:50px; */
+}
+
+input:focus {
+    box-shadow: 0px 0px 2px 2px var(--lightTheme);
+    outline: 1px solid rgba(167, 45, 139, 0.6);
+    border-radius: 8px;
+  }
+
+/* common css style end here */
+/* index page styles */
+body#landing-background {
+    color: #FFFFFF;
+    height: 100vh;
+    background-color: var(--theme);
+    background-image: linear-gradient(to bottom right, var(--lightTheme), var(--theme));
+}
+div#landingPage {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.btn-secondary {
+    background-color: var(--pink);
+    background-image: linear-gradient(to bottom right, rgb(255, 171, 185), var(--pink));
+    color: white;
+    border: none;
+}
+
+.btn-secondary:hover {
+    background-color: var(--pink);
+    color: white;
+    border: none;
+}
+
+.btn-secondary:focus {
+    background-color: var(--pink);
+    color: white;
+    border: none !important;
+}
+
+.btn-secondary:active {
+    background-color: var(--pink) !important;
+    color: white;
+    border: none !important;
+}
+/* home page styles */
+.btn-primary {
+    background-color: var(--theme);
+    background-image: linear-gradient(to bottom right, var(--lightTheme), var(--theme));
+    color: white;
+    border: none;
+}
+.btn-primary:hover {
+    background-color: var(--lightTheme);
+    color: white;
+    border: none;
+}
+.btn-primary:focus {
+    background-color: var(--lightTheme);
+    color: white;
+    border: none !important;
+}
+.btn-primary:active {
+    background-color: var(--lightTheme) !important;
+    color: white;
+    border: none !important;
+}
+.btn-danger {
+    background-color: var(--blush);
+    background-image: linear-gradient(to bottom right, var(--beige), var(--blush));
+    color: white;
+    border: none;
+}
+.btn-danger:hover {
+    background-color: var(--beige);
+    color: white;
+    border: none;
+}
+.btn-danger:focus {
+    background-color: var(--beige);
+    color: white;
+    border: none !important;
+}
+.btn-danger:active {
+    background-color: var(--beige) !important;
+    color: white;
+    border: none !important;
+}
+#startItineraryBtn {
+    font-size: 1.5em;
+}
+#headerSection {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar-brand {
+    float: left;
+    height: 50px;
+    padding: 15px 15px;
+    font-size: 18px;
+    line-height: 20px;
+}
+
+.topnav{
+    z-index: 2;
+}
+
+#mySidenav{
+    z-index: 5;
+}
+
+/* text rule */
+
+h1 {
+    color: black;
+}
+
+#primaryAlert {
+    position:fixed;
+    top:100px;
+    left:10vw;
+    width:80vw;
+    transition: all 0.4;
+    display: none;
+    opacity: 0;
+    padding-top: 20px;
+    height:fit-content;
+    z-index:10000000000000;
+    /* padding-bottom: 10px; */
+}
+
+/* swal alert button */
+.swal-button {
+    color: white !important;
+    padding: 7px 19px;
+    border-radius: 2px;
+    background-color: #A72D8b;
+    font-size: 12px;
+    border: 1px solid #872570;
+    text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.3);
+}
+
+.swal-button:hover {
+    background-color: #872570 !important;
+}
+
+.swal-button--cancel {
+    background-color: var(--pink);
+}

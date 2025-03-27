@@ -1,0 +1,206 @@
+#chatBackGround {
+    /* background-color: rgba(233, 148, 169, 0.25); */
+    background-color: #f4eef4;
+}
+
+#imageInputHolder {
+    padding: 0;
+    opacity: 0;
+    position: fixed;
+    left: 2vw;
+    bottom: 10px;
+    z-index: 0;
+    width: 20px;
+}
+
+.chatBottomBox {
+    position: fixed;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    height: 45px;
+    z-index: 5;
+    background-color: var(--backgroundWhite);
+    box-shadow: 2px 2px 20px 2px rgba(0, 0, 0, .15);
+}
+
+.chatBottomBox {
+    display: flex;
+    align-items: center;
+}
+
+.chatIconButton {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--blush);
+    cursor: pointer;
+}
+
+.chatInput {
+    height: 30px;
+    border-radius: 8px;
+    border: 1px solid var(--lightTheme) !important;
+}
+
+.chatInput:focus {
+    outline: 1px solid rgba(167, 45, 139, 0.6) !important;
+}
+
+.chatMessage {
+    min-height: 70px;
+    display: flex;
+}
+
+
+.chatMessageBoxOne {
+    margin-right: 5px;
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    position: relative;
+}
+
+.emojiIcon {
+    position: absolute;
+    right: -5px;
+    bottom: -5px;
+}
+
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(-2px);
+    }
+
+    40% {
+        transform: translateX(2px);
+    }
+
+    60% {
+        transform: translateX(-1px);
+    }
+
+    80% {
+        transform: translateX(1px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.emojiAnimate {
+    animation: shake 0.4s;
+    animation-iteration-count: 1;
+}
+
+.chatMessageHeader {
+    position: absolute;
+    top: 7px;
+}
+
+.chatMessageText {
+    margin-top: 28px;
+    word-wrap: break-word;
+    width: 100%;
+}
+
+.messageImage {
+    width: 50px;
+    height: 50px;
+    background-color: var(--backgroundWhite);
+    border-radius: 50%;
+    border: 1px solid #34495e;
+}
+
+.messagerName {
+    color: black;
+    font-weight: bold;
+}
+
+.chatNotification {
+    margin-top: 22px;
+    margin-bottom: 22px;
+    text-align: center;
+}
+
+#chatBackGround {
+    overflow:hidden;
+}
+
+#chatRoomView::-webkit-scrollbar {
+    display: none
+}
+
+#chatRoomView .chatMessage:last-child {
+    margin-bottom: 60px;
+    height: 120px;
+}
+
+
+#container {
+    overflow-y: auto;
+}
+
+.chatMessageBoxTwo {
+    position: relative;
+    flex: 1;
+    background-color: unset;
+    display: inline-block;
+    height: fit-content;
+}
+
+.delete-button {
+    visibility: hidden;
+}
+
+.messageID {
+    display: none;
+}
+
+.chatMessageBoxTwo:hover .delete-button {
+    visibility: visible;
+    color: red;
+    cursor: pointer;
+}
+
+
+.chatMessageText {
+    font-size: 17px;
+    color: black;
+    display: flex;
+    align-items: flex-start;
+}
+
+.clientImage {
+    width: 200px;
+    height: auto;
+    flex-grow: 1;
+}
+
+.aiSuggestion {
+    background-color: var(--beige);
+    height: fit-content;
+    width: 90vw;
+    position: fixed;
+    top: 80px;
+    border-radius: 8px;
+    opacity: 0;
+    transition: all 0.7s;
+    line-height: 25px;
+    font-size: 15px;
+    padding: 8px 15px;
+    color: rgb(187, 98, 95);
+    box-shadow: 0px 0px 2px 2px rgba(197, 194, 194, 0.3);
+    font-weight: normal;
+}
+
+.aiSuggestionShow {
+    opacity: 1;
+    top: 60px;
+}

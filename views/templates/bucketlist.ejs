@@ -1,0 +1,103 @@
+<hr>
+
+<div class="container mb-5 pb-5">
+    <div class="container" style="padding:0;">
+        <h3 class="text-center mb-3">My bucket list</h3>
+        <div id="bucketlist">
+                <div class="unit">
+                    <button id="addBucketList" type="button" class="btn border addbtn justify-content-center">
+                        <span class="material-symbols-outlined">
+                            add
+                        </span>
+                    </button>
+                </div>
+                <!-- above card is a place holder -->
+                <% for (var i = 0; i < bucketlist.length; i++) { %>
+                <div class="unit">
+                    <div class="card" data-toggle="modal" data-target="#<%= bucketlist[i]._id %>">
+
+                        <% if (bucketlist[i].travelImg) { %>
+                            <img class="card-image" src="data:image/png;base64,<%= bucketlist[i].travelImg %>" alt="Card image cap">
+                        <%} else { %>
+                            <img class="card-image" src="https://picsum.photos/300/200?random=<%= i %>" alt="Card image cap">
+                        <% } %>
+
+                        <div class="text-overlay">
+                            <h2><%= bucketlist[i].city %></h2>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="<%= bucketlist[i]._id %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h1 class="modal-title" id="<%= bucketlist[i]._id %>"><%= bucketlist[i].city %></h1>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <% if (bucketlist[i].travelImg) { %>
+                                <div class="modal-cover"><img id="<%= bucketlist[i]._id %>" src="data:image/png;base64,<%= bucketlist[i].travelImg %>" alt="Modal Image"></div>
+                            <%} else { %>
+                                <div class="modal-cover"><img id="<%= bucketlist[i]._id %>" src="https://picsum.photos/300/200?random=<%= i %>" alt="Modal Image"></div>
+                            <% } %>
+                            <div class="modal-body">
+                                <h5><%=bucketlist[i].country %>
+                                    <span style="float: right" class="material-symbols-outlined">
+                                    more_vert
+                                    </span>
+                                </h5>
+                                <p><%=bucketlist[i].description %></p>
+                            </div>
+
+                            <div class="modal-footer">
+                                <form action="/toHistory" method="post">
+                                    <input type="hidden" name="bucketID" value="<%=bucketlist[i]._id %>">
+                                    <button type="submit" id="toHistoryBtn" class="btn btn-secondary">Move to history</button>
+                                </form>
+                                <button type="button" class="btn btn-primary" id="<%=bucketlist[i]._id %>" value="<%=bucketlist[i]._id %>" onclick="window.location.href = '/editBucket?cardID=<%= bucketlist[i]._id %>';">Edit</button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <% } %>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    document.getElementById('addBucketList').onclick = function () {
+        window.location.href = '/enterBucket'; 
+    };
+
+    document.getElementById('toHistoryBtn').onclick = function (e) {
+        //ready to move selected bucket to history
+        e.preventDefault();
+
+        swal({
+            title: "Are you sure?",
+            text: "We're moving this card to your history! You won't be able to make any more changes to it, but you can always find it in your travel history section.",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((willDelete) => {
+            if (willDelete) {
+                swal("Your card has been moved to your history!", {
+                    icon: "success",
+                }).then(() => {
+                    e.target.form.submit();
+                });
+            } else {
+                swal("Your card is safe!");
+            }
+        });
+    };
+</script>

@@ -1,0 +1,26 @@
+<%- include("templates/header") %>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="/assets/common.css">
+</head>
+<body>
+    <%- include("templates/nav") %>
+    <div class="container text-center">
+        <div class="card text-center m-4">
+            <div class="col-12">
+                <div class="card-title mt-3">
+                    <h1>Group Not Found</h1>
+                </div>
+                <div class="card-body">
+                    <p>Sorry, the group you're looking for cannot be found.</p>
+                    <p>Try joining another group, double-checking your group token is correct, or that you have the correct link.</p>
+                    <button type="button" class="btn btn-primary" onclick="window.location.href='/userprofile'">
+                        Back to Profile
+                    </button>
+                </div>
+            </div>
+        </div>
+    <%- include("templates/bottomNav") %>
+</body>
+</html>
